@@ -26,6 +26,8 @@ type Stage interface {
 	GetChildStages() list.List
 	GetStageName() string
 	SetStageName(string)
+	GetMessage() string
+	SetMessage(string)
 	GetInputCh() *chan Mediator
 	SetInputCh(*chan Mediator)
 	GetOutputCh() *chan Mediator

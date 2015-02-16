@@ -75,7 +75,13 @@ func (e *Engine) ExecuteStage(stage stages.Stage) {
 		result = false
 	}
 	log.Debugf("stage executution results: %+v, %+v", stage.GetStageName(), result)
-	e.Pipeline.Report(fmt.Sprintf("stage executution results: %+v, %+v", stage.GetStageName(), result))
+	if stage.GetMessage() == "default" {
+		e.Pipeline.Report(fmt.Sprintf("stage executution results: %+v, %+v", stage.GetStageName(), result))
+	} else if (stage.GetMessage() == "") {
+		// do nothing.
+	} else {
+		e.Pipeline.Report(stage.GetMessage())
+	}
 
 	mediator := stages.Mediator{States: make(map[string]string)}
 	mediator.States[stage.GetStageName()] = fmt.Sprintf("%v", result)

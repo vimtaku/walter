@@ -28,6 +28,7 @@ type BaseStage struct {
 	OutputCh    *chan Mediator
 	ChildStages list.List
 	StageName   string `config:"stage_name"`
+	Message   string `config:"message"`
 }
 
 func (b *BaseStage) Run() bool {
@@ -50,8 +51,15 @@ func (b *BaseStage) GetStageName() string {
 	return b.StageName
 }
 
+func (b *BaseStage) GetMessage() string {
+	return b.Message
+}
+
 func (b *BaseStage) SetStageName(stageName string) {
 	b.StageName = stageName
+}
+func (b *BaseStage) SetMessage(message string) {
+	b.Message = message
 }
 
 func (b *BaseStage) SetInputCh(inputCh *chan Mediator) {

@@ -167,6 +167,15 @@ func mapStage(stageMap map[interface{}]interface{}) (stages.Stage, error) {
 		stage.SetStageName(stageMap["stage_name"].(string))
 	}
 
+	if message := stageMap["message"]; message != nil {
+		v := reflect.ValueOf(message)
+		if (v.Type() == reflect.ValueOf("string").Type()) {
+			stage.SetMessage(stageMap["message"].(string))
+		} else {
+			stage.SetMessage("default")
+		}
+	}
+
 	for i := 0; i < newStageType.NumField(); i++ {
 		tagName := newStageType.Field(i).Tag.Get("config")
 		for stageOptKey, stageOptVal := range stageMap {
